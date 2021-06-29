@@ -21,13 +21,8 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
 
     # PRIVATE CLASS ATTRIBUTES
-    __classes_list = ["BaseModel",
-                    "User",
-                    "City",
-                    "State",
-                    "Place",
-                    "Review",
-                    "Amenity"]
+    __classes_list = ["BaseModel", "User", "City", "State", "Place",
+                     "Review", "Amenity"]
     _QUIT_ = 1
     _SUCCESS_ = 0
 
@@ -156,8 +151,8 @@ class HBNBCommand(cmd.Cmd):
              all instances based or not on the class name.
         """
 
-
         instances_list = list()
+
         def print_instances(list):
             instance_dict = storage.all()
             for key in list:
