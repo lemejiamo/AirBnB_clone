@@ -5,6 +5,7 @@
 
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """
         class User inherits from BaseModel
@@ -40,8 +41,3 @@ class User(BaseModel):
                 self.__dict__))
 
 # |----------- END PRIVATE METHODS -------------|
-
-
-if __name__ == "__main__":
-    my_user = User()
-    print(my_user)
