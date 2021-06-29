@@ -4,6 +4,13 @@
 """
 import json
 import models
+from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.review import Review
+from models.place import Place
+from models.state import State
+from models.city import City
 
 
 class FileStorage():
@@ -40,7 +47,13 @@ class FileStorage():
         """
             returns the dictionary of all objects
         """
-        return (self.__objects)
+        all_objects = dict()
+        for key in self.__objects:
+            instance_dict = self.objects.get(key)
+            instance_object = eval(instance_dict.get('__class__'))(**instance_dict)
+            all_objects[key] = (instance_object.__str__())
+
+        return (all_objects)
 
     def new(self, obj):
         """
@@ -73,5 +86,6 @@ class FileStorage():
         try:
             with open(self.__file_path, 'r') as read_file:
                 self.__objects = json.load(read_file)
+                self.all()
         except FileNotFoundError:
             pass
