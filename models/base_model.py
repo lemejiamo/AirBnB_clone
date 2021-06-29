@@ -32,7 +32,7 @@ class BaseModel():
 # |-------------------CONSTRUCTOR-------------------|
     def __init__(self, **kwargs):
         """
-            CONSTRUCTOR
+            CONSTRUCTOR FOR BASE MODEL
         """
 
         if kwargs:
