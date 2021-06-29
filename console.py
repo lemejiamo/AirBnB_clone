@@ -19,7 +19,11 @@ class HBNBCommand(cmd.Cmd):
     _QUIT_ = 1
     _SUCCESS_ = 0
 
-    def instance_verification(self, input):
+    def __instance_verification(self, input):
+        """
+            Verify if the instance exists
+        """
+
         # if the class name is missing,
         # print ** class name missing ** (ex: $ show)
         if input == '':
@@ -41,23 +45,29 @@ class HBNBCommand(cmd.Cmd):
             return self._QUIT_, None, None
 
         key = str(args[0]) + '.' + args[1]
+        # If the key is valid Return key and args
         if key in storage.objects:
             return self._SUCCESS_, key, args
+
         # If the instance of the class name doesn’t exist
         # for the id, print ** no instance found **
         else:
             print("** no instance found **")
             return self._QUIT_, None, None
 
-    def attributes_verification(self, args_list):
-        # If the id is missing,
-        # print ** instance id missing ** (ex: $ show BaseModel)
+    def __attributes_verification(self, args_list):
+        """
+        verify if the attributes are valid
+        """
+
+        # If the attribute is missing,
+        # print ** attribute name missing **
         if len(args_list) == 2:
             print("** attribute name missing **")
             return self._QUIT_
 
-        # If the id is missing,
-        # print ** instance id missing ** (ex: $ show BaseModel)
+        # If the value is missing,
+        # print ** value missing **
         if len(args_list) == 3:
             print("** value missing **")
             return self._QUIT_
@@ -87,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
             Attributes
             name_class - the name of the class to create
         """
-        self.__classes_list = ["BaseModel"]
+        self.__classes_list
 
         if name_class in self.__classes_list:
             new_model = BaseModel()
@@ -107,9 +117,9 @@ class HBNBCommand(cmd.Cmd):
             instance based on the class name and id
         """
 
-        verification, key, args = self.instance_verification(input)
+        verification, key, args = self.__instance_verification(input)
 
-        if verification == 1:
+        if verification == self._QUIT_:
             return
 
         instance_dict = storage.objects.get(key)
@@ -121,9 +131,9 @@ class HBNBCommand(cmd.Cmd):
             Deletes an instance based on the class
             name and id and save the change into the JSON file.
         """
-        verification, key, args = self.instance_verification(input)
+        verification, key, args = self.__instance_verification(input)
 
-        if verification == 1:
+        if verification == self._QUIT_:
             return
 
         storage.objects.pop(key)
@@ -135,10 +145,9 @@ class HBNBCommand(cmd.Cmd):
              all instances based or not on the class name.
         """
 
-        class_list = ["BaseModel"]
-        instances_list = list()
 
         def print_instances(list):
+            instances_list = list()
             for key in list:
                 instance_dict = storage.objects.get(key)
                 created_object = BaseModel(**instance_dict)
@@ -151,7 +160,7 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             args = input.split(" ")
-            if args[0] in class_list:
+            if args[0] in self.__classes_list:
                 list_all_keys = list(storage.objects.keys())
                 list_selected_keys = list()
                 for key in list_all_keys:
