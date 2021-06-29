@@ -5,6 +5,12 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
+from models.amenity import Amenity
+from models.review import Review
+from models.place import Place
+from models.state import State
+from models.city import City
 
 
 class HBNBCommand(cmd.Cmd):
@@ -15,7 +21,13 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
 
     # PRIVATE CLASS ATTRIBUTES
-    __classes_list = ["BaseModel"]
+    __classes_list = ["BaseModel",
+                    "User",
+                    "City",
+                    "State",
+                    "Place",
+                    "Review",
+                    "Amenity"]
     _QUIT_ = 1
     _SUCCESS_ = 0
 
@@ -97,10 +109,9 @@ class HBNBCommand(cmd.Cmd):
             Attributes
             name_class - the name of the class to create
         """
-        self.__classes_list
 
         if name_class in self.__classes_list:
-            new_model = BaseModel()
+            new_model = eval(name_class)()
             new_model.save()
             print(new_model.id)
             storage.reload()
@@ -123,7 +134,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         instance_dict = storage.objects.get(key)
-        instance_object = BaseModel(**instance_dict)
+        instance_object = eval(instance_dict.get('__class__'))(**instance_dict)
         print(instance_object.__str__())
 
     def do_destroy(self, input):
@@ -146,12 +157,13 @@ class HBNBCommand(cmd.Cmd):
         """
 
 
+        instances_list = list()
         def print_instances(list):
-            instances_list = list()
+            instance_dict = storage.all()
             for key in list:
                 instance_dict = storage.objects.get(key)
-                created_object = BaseModel(**instance_dict)
-                instances_list.append(created_object.__str__())
+                instance_object = eval(instance_dict.get('__class__'))(**instance_dict)
+                instances_list.append(instance_object.__str__())
             print(instances_list)
 
         if input == '':
@@ -177,12 +189,12 @@ class HBNBCommand(cmd.Cmd):
             name and id and save the change into the JSON file.
         """
 
-        verification, key, args = self.instance_verification(input)
+        verification, key, args = self.__instance_verification(input)
 
         if verification == self._QUIT_:
             return
 
-        verification = self.attributes_verification(args)
+        verification = self.__attributes_verification(args)
 
         if verification == self._QUIT_:
             return
