@@ -5,9 +5,10 @@
 """
 
 import copy
+import models
 from uuid import uuid4
 from datetime import datetime
-from models.__init__ import storage
+#from models.__init__ import storage
 
 
 class BaseModel():
@@ -57,7 +58,7 @@ class BaseModel():
             self.created_at = time
             self.update_at = time
 
-        storage.new(self)
+        models.storage.new(self)
 
 # |--------------SETTER & GETTER 'name'-----------|
     @property
@@ -101,8 +102,8 @@ class BaseModel():
 
         time = datetime.now()
         self.update_at = time
-        storage.new(self)
-        storage.save()
+        models.storage.new(self)
+        models.storage.save()
 
     def to_dict(self):
         """
