@@ -157,8 +157,8 @@ class HBNBCommand(cmd.Cmd):
             instance_dict = storage.all()
             for key in list:
                 instance_dict = storage.objects.get(key)
-                instance_object = eval(instance_dict.get('__class__'))                (**instance_dict)
-                instances_list.append(instance_object.__str__())
+                _object = eval(instance_dict.get('__class__'))(**instance_dict)
+                instances_list.append(_object.__str__())
             print(instances_list)
 
         if input == '':
