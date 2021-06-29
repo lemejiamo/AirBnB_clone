@@ -1,0 +1,191 @@
+#!/usr/bin/python3
+"""
+    Console Module to manage AirBNB clone project to Holberton School
+"""
+import cmd
+from models.base_model import BaseModel
+from models import storage
+
+
+class HBNBCommand(cmd.Cmd):
+    """
+        Command line interpreter to AIRBNB clone
+    """
+    # default prompt
+    prompt = "(hbnb)"
+
+    # PRIVATE CLASS ATTRIBUTES
+    __classes_list = ["BaseModel"]
+    _QUIT_ = 1
+    _SUCCESS_ = 0
+
+    def instance_verification(self, input):
+        # if the class name is missing,
+        # print ** class name missing ** (ex: $ show)
+        if input == '':
+            print("** class name missing **")
+            return self._QUIT_, None, None
+
+        # Tokenized input
+        args = input.split(" ")
+
+        # If the class name doesn’t exist, print ** class doesn't exist **
+        if args[0] not in self.__classes_list:
+            print("** class doesn't exist **")
+            return self._QUIT_, None, None
+
+        # If the id is missing,
+        # print ** instance id missing ** (ex: $ show BaseModel)
+        if len(args) == 1:
+            print("** instance id missing **")
+            return self._QUIT_, None, None
+
+        key = str(args[0]) + '.' + args[1]
+        if key in storage.objects:
+            return self._SUCCESS_, key, args
+        # If the instance of the class name doesn’t exist
+        # for the id, print ** no instance found **
+        else:
+            print("** no instance found **")
+            return self._QUIT_, None, None
+
+    def attributes_verification(self, args_list):
+        # If the id is missing,
+        # print ** instance id missing ** (ex: $ show BaseModel)
+        if len(args_list) == 2:
+            print("** attribute name missing **")
+            return self._QUIT_
+
+        # If the id is missing,
+        # print ** instance id missing ** (ex: $ show BaseModel)
+        if len(args_list) == 3:
+            print("** value missing **")
+            return self._QUIT_
+
+        return self._SUCCESS_
+
+    def do_EOF(self, args):
+        """ EOF command - exit the program """
+        return quit()
+
+    def do_quit(self, args):
+        """ Quit command - exit the program """
+        return exit
+
+    def emptyline(self):
+        """
+            Called when an empty line
+            is entered in response to the prompt.
+        """
+        pass
+
+    def do_create(self, name_class):
+        """
+            Creates a new instance of BaseModel,
+            saves it (to the JSON file) and prints the id
+
+            Attributes
+            name_class - the name of the class to create
+        """
+        self.__classes_list = ["BaseModel"]
+
+        if name_class in self.__classes_list:
+            new_model = BaseModel()
+            new_model.save()
+            print(new_model.id)
+            storage.reload()
+
+        elif name_class == '':
+            print("** class name missing **")
+
+        else:
+            print("** class doesn't exist **")
+
+    def do_show(self, input):
+        """
+            Prints the string representation of an
+            instance based on the class name and id
+        """
+
+        verification, key, args = self.instance_verification(input)
+
+        if verification == 1:
+            return
+
+        instance_dict = storage.objects.get(key)
+        instance_object = BaseModel(**instance_dict)
+        print(instance_object.__str__())
+
+    def do_destroy(self, input):
+        """
+            Deletes an instance based on the class
+            name and id and save the change into the JSON file.
+        """
+        verification, key, args = self.instance_verification(input)
+
+        if verification == 1:
+            return
+
+        storage.objects.pop(key)
+        storage.save()
+
+    def do_all(self, input):
+        """
+             Prints all string representation of
+             all instances based or not on the class name.
+        """
+
+        class_list = ["BaseModel"]
+        instances_list = list()
+
+        def print_instances(list):
+            for key in list:
+                instance_dict = storage.objects.get(key)
+                created_object = BaseModel(**instance_dict)
+                instances_list.append(created_object.__str__())
+            print(instances_list)
+
+        if input == '':
+            list_all_keys = list(storage.objects.keys())
+            print_instances(list_all_keys)
+
+        else:
+            args = input.split(" ")
+            if args[0] in class_list:
+                list_all_keys = list(storage.objects.keys())
+                list_selected_keys = list()
+                for key in list_all_keys:
+                    if (str(args[0]) in key):
+                        list_selected_keys.append(key)
+                print_instances(list_selected_keys)
+            else:
+                print("** class doesn't exist **")
+
+    def do_update(self, input):
+
+        """
+            Deletes an instance based on the class
+            name and id and save the change into the JSON file.
+        """
+
+        verification, key, args = self.instance_verification(input)
+
+        if verification == self._QUIT_:
+            return
+
+        verification = self.attributes_verification(args)
+
+        if verification == self._QUIT_:
+            return
+
+        value = (args[3])[1:-1]  # erase double quotes
+        object_attributes = storage.objects.get(key)
+        object_attributes[args[2]] = value
+        # pendiente con la clase del objecto
+        # print(object_attributes.__class__.__name__)
+        # BaseModel(**new_object_attributes)
+        storage.save()
+
+
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
