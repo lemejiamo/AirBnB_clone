@@ -1,15 +1,14 @@
 #!/usr/bin/python3
 from models.base_model import BaseModel
 """
-    Class City to AirBnB clone
+    Class State to AirBnB clone
 """
 
 
-class City(BaseModel):
+class State(BaseModel):
     """
-        City inherits from class BaseModel
+        State inherits from class BaseModel
     """
 
     # |-------------------PUBLIC CLASS ATTRIBUTES-------------------|
-    state_id = ""
     name = ""

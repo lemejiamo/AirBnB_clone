@@ -50,7 +50,8 @@ class FileStorage():
         all_objects = dict()
         for key in self.__objects:
             instance_dict = self.objects.get(key)
-            instance_object = eval(instance_dict.get('__class__'))(**instance_dict)
+            instance_object = eval(instance_dict.get('__class__'))
+            (**instance_dict)
             all_objects[key] = (instance_object.__str__())
 
         return (all_objects)

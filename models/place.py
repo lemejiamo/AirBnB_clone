@@ -1,18 +1,19 @@
+#!/usr/bin/python3
 from models.base_model import BaseModel
 """
-    standar documentation
+   Class Place to AirBnB clone
 """
+
 
 class Place(BaseModel):
     """
-        standar documentation
-        please UODATE
+        Place inherits from class BaseModel
     """
 
     # |-------------------PUBLIC CLASS ATTRIBUTES-------------------|
 
     city_id = ""  # string - empty string: it will be the City.id
-    user_id = "" # string - empty string: it will be the User.id
+    user_id = ""  # string - empty string: it will be the User.id
     name = ""
     description = ""
     number_rooms = 0
@@ -21,4 +22,4 @@ class Place(BaseModel):
     price_by_night = 0
     latitude = 0.0
     longitude = 0.0
-    amenity_ids = list() #empty list: it will be the list of Amenity.id later
+    amenity_ids = list()  # empty list: it will be the list of Amenity.id later

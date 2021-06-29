@@ -8,7 +8,6 @@ import copy
 import models
 from uuid import uuid4
 from datetime import datetime
-#from models.__init__ import storage
 
 
 class BaseModel():

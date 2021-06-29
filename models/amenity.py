@@ -1,12 +1,13 @@
+#!/usr/bin/python3
 from models.base_model import BaseModel
 """
-    PDTE UPDATE
+    Class Amenity to AirBnB clone
 """
 
 
 class Amenity(BaseModel):
     """
-        PDTE UPDATE
+       Amenity inherits from class BaseModel
     """
     # |-------------------PUBLIC CLASS ATTRIBUTES-------------------|
     name = ""
