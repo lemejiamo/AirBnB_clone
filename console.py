@@ -22,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
 
     # PRIVATE CLASS ATTRIBUTES
     __classes_list = ["BaseModel", "User", "City", "State", "Place",
-                     "Review", "Amenity"]
+                      "Review", "Amenity"]
     _QUIT_ = 1
     _SUCCESS_ = 0
 
@@ -157,7 +157,8 @@ class HBNBCommand(cmd.Cmd):
             instance_dict = storage.all()
             for key in list:
                 instance_dict = storage.objects.get(key)
-                instance_object = eval(instance_dict.get('__class__'))(**instance_dict)
+                instance_object = eval(instance_dict.get('__class__'))
+                (**instance_dict)
                 instances_list.append(instance_object.__str__())
             print(instances_list)
 
