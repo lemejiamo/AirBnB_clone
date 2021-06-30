@@ -1,106 +1,56 @@
 #!/usr/bin/python3
-from models.engine.file_storage import FileStorage
-"""
-    TEST MODULE
+""" Testing file_storage module """
 
-    in this section we approach to especif tests realized
-    to all funtions in AIRBNB clone project to Holberton School
-"""
-from models.base_model import BaseModel
+
 import unittest
+import pep8
+import models
+import re
 import os
+from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
+from datetime import datetime
+from time import sleep
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
-class Test_file_storage(unittest.TestCase):
-    """
-        Superclass from all foward tests
-    """
+class TestFileStorage(unittest.TestCase):
+    """[unittest]"""
 
-    def test_CONSTRUCTOR(self):
-        """
-            test to CONSTRUCTOR (__init__)
-            in class base_model
-        """
+    def testpep8(self):
+        """ [testing codestyle] """
+        pepstylecode = pep8.StyleGuide(quiet=True)
+        user_path = 'models/engine/file_storage.py'
+        result = pepstylecode.check_files([user_path])
 
-        model_dict = {'name': 'holberton', 'edad': '23'}
-        test_model = BaseModel(**model_dict)
+    def test_createAttr_noArgs(self):
+        """[create Instance User]"""
+        my_model = User()
+        my_model.first_name = "FirstName"
+        my_model.last_name = "LastName"
+        my_model.email = "email@test.com"
+        self.storage = FileStorage()
 
-        # test to verify the instance
-        self.assertIsInstance(test_model, BaseModel)
+    def test_all(self):
+        """[Test all File Storage Functions]"""
+        storage = FileStorage()
+        my_model = storage.all()
+        self.assertIsNotNone(my_model)
+        self.assertEqual(type(my_model), dict)
+        self.assertIs(my_model, storage._FileStorage__objects)
 
-        # test to verify the type of variable
-        base_type_name = type(test_model.name)
-        print(type(test_model.name))
-        self.assertEqual(base_type_name, str)
-
-        base_type_create = type(test_model.created_at)
-        print(base_type_create)
-        self.assertEqual(type(test_model.created_at), base_type_create)
-
-        base_type_update = type(test_model.update_at)
-        self.assertEqual(type(test_model.update_at), base_type_update)
-
-        baase_type_id = type(test_model.id)
-        self.assertEqual(type(test_model.id), str)
-
-        # test to verify if KWARGS contains something
-
-        test_model2 = BaseModel(**model_dict)
-        self.assertEqual(test_model2.name, 'holberton')
-
-        with self.assertRaises(TypeError):
-            BaseModel(2)
-
-        test_list = list()
-        with self.assertRaises(TypeError):
-            BaseModel(test_list)
-
-    def test_str_method(self):
-        """
-            Test to verify the print of magic __str__ method
-        """
-        model_dict = {'name': 'holberton', 'edad': '23', 'id': '0'}
-        test_model = BaseModel(**model_dict)
-
-        print(test_model)
-
-        pass
-
-    def test_save(self):
-
-        # Test to check update function
-        model_dict = {'name': 'holberton', 'edad': '23', 'id': '0'}
-        test_model = BaseModel(**model_dict)
-        test_model.save()
-        self.assertNotEqual(test_model.created_at, test_model.update_at)
-
-    def test_to_dict_method(self):
-        """
-            Test to verify to_dict_method
-        """
-        # comprobar si la salida es diferente
-        # comprobar el formato de salida de la fecha debe ser STR
-
-        pass
-
-    def test_to_kwargs(self):
-        # verificar que le valor de kwargs sea cero cuando no se pase nada
-        pass
-
-    def test_to_storage(self):
-        # verify
-        pass
-
-    def test_save_storage(self):
-        # verificar que las listas no sean nulas o vacias
-        pass
-
-    def test_reload(self):
-        # verificar si el archivo existe
-        pass
-
-# |------------ENTRY POINT------------|
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_new(self):
+        """[Test new file storage functions]"""
+        storage = FileStorage()
+        my_model = storage.all()
+        user = User()
+        user.id = 12345
+        user.name = "Name"
+        storage.new(user)
+        key = user.__class__.__name__ + "." + str(user.id)
+        self.assertIsNotNone(my_model[key])
