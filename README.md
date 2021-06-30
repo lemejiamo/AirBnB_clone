@@ -3,7 +3,7 @@
 to project AirBNB clone, to Holberton School.
 ## Description
 ---
-![Phase 1](https://imgur.com/DOVqUSJ "Phase 1")
+![Phase 1](https://imgur.com/a/bp3kiNa "Phase 1")
 
 This is a C.L.I. (Command Line Interpreter) prepare to manage and store your AirBNB objects, in a JSON database.
  #### Environment 
