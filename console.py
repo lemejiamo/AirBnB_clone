@@ -129,8 +129,8 @@ class HBNBCommand(cmd.Cmd):
             return
 
         instance_dict = storage.objects.get(key)
-        instance_object = eval(instance_dict.get('__class__'))(**instance_dict)
-        print(instance_object.__str__())
+        _object = eval(instance_dict.get('__class__'))(**instance_dict)
+        print(_object.__str__())
 
     def do_destroy(self, input):
         """
