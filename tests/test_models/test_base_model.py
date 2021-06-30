@@ -12,7 +12,7 @@ from datetime import datetime
 import re
 
 
-class Test_airbnb(unittest.TestCase):
+class Test_BaseModel(unittest.TestCase):
     """
         Superclass from all foward tests
     """
