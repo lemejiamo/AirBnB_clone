@@ -34,17 +34,18 @@ class BaseModel():
         """
             CONSTRUCTOR FOR BASE MODEL
         """
+        time_format = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:
             for key in kwargs.keys():
                 if key == "created_at":
                     time = datetime.strptime(
                         kwargs.get(key),
-                        "%Y-%m-%dT%H:%M:%S.%f")
+                        time_format)
                     self.created_at = time
                 elif key == "update_at":
                     time = datetime.strptime(
                         kwargs.get(key),
-                        "%Y-%m-%dT%H:%M:%S.%f")
+                        time_format)
                     self.update_at = time
                 elif key == "__class__":
                     pass
