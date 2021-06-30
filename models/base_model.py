@@ -30,11 +30,10 @@ class BaseModel():
     """
 
 # |-------------------CONSTRUCTOR-------------------|
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
             CONSTRUCTOR FOR BASE MODEL
         """
-
         if kwargs:
             for key in kwargs.keys():
                 if key == "created_at":
