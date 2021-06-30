@@ -58,6 +58,24 @@ class BaseModel():
 
         models.storage.new(self)
 
+# |--------------SETTER & GETTER 'name'-----------|
+    @property
+    def _name(self):
+        """
+            Getter for name value
+        """
+
+        return (self.name)
+
+    @_name.setter
+    def _name(self, name):
+        """
+            Setter from name value
+        """
+        if type(name) is not str:
+            raise TypeError
+        self.name = name
+
 # |-----------PRIVATE INSTANCE METHODS-----------|
 # |------------OVERRIDE __STR__ METHOD-----------|
     def __str__(self):
@@ -82,7 +100,7 @@ class BaseModel():
 
         time = datetime.now()
         self.update_at = time
-        models.storage.new(self)
+        #models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
