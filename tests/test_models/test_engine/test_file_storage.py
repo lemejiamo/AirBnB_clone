@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from models.engine.file_storage import FileStorage
 """
     TEST MODULE
 
@@ -10,7 +11,7 @@ import unittest
 import os
 
 
-class Test_airbnb(unittest.TestCase):
+class Test_file_storage(unittest.TestCase):
     """
         Superclass from all foward tests
     """
