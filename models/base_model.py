@@ -10,7 +10,6 @@ from uuid import uuid4
 from datetime import datetime
 
 
-
 class BaseModel():
     """
         Super Class for AIRBNB project
@@ -106,7 +105,7 @@ class BaseModel():
 
         time = datetime.now()
         self.update_at = time
-        #models.storage.new(self)
+        # models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
