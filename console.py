@@ -197,9 +197,6 @@ class HBNBCommand(cmd.Cmd):
         value = (args[3])[1:-1]  # erase double quotes
         object_attributes = storage.objects.get(key)
         object_attributes[args[2]] = value
-        # pendiente con la clase del objecto
-        # print(object_attributes.__class__.__name__)
-        # BaseModel(**new_object_attributes)
         storage.save()
 
 
