@@ -10,6 +10,7 @@ from uuid import uuid4
 from datetime import datetime
 
 
+
 class BaseModel():
     """
         Super Class for AIRBNB project
@@ -89,7 +90,7 @@ class BaseModel():
         """
 
         return ("[{}] ({}) {}".format(
-                __class__.__name__,
+                self.__class__.__name__,
                 self.id,
                 self.__dict__))
 
