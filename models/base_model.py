@@ -34,10 +34,6 @@ class BaseModel():
         """
             CONSTRUCTOR FOR BASE MODEL
         """
-        self.id = str(uuid4())
-        time = datetime.now()
-        self.created_at = time
-        self.update_at = time
 
         if kwargs:
             for key in kwargs.keys():
