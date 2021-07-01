@@ -11,9 +11,8 @@ import os
 
 
 class Test_Place(unittest.TestCase):
-    
-        pass
 
+    pass
 
 
 if __name__ == "__main__":

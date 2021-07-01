@@ -54,13 +54,13 @@ class Test_BaseModel(unittest.TestCase):
         self.assertEqual(test_model2.name, 'holberton')
         self.assertEqual(test_model2.edad, 23)
 
-
     def test_str(self):
         '''[check __str__ method]'''
         my_model = BaseModel()
-        r = re.compile("\[BaseModel\] (.*) {.*}")
+        r = re.compile("[BaseModel] (.*) {.*}")
         my_str = my_model.__str__()
         self.assertIsNotNone(r.match(my_str))
+
 
 if __name__ == "__main__":
     unittest.main()
