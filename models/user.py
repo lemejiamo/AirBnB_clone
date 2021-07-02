@@ -16,7 +16,12 @@ class User(BaseModel):
             firts_name:string
             last_name:string
     """
-    def __init__(self, **kwargs):
+    first_name = ""
+    last_name = ""
+    email = ""
+    password = ""
+
+    def __init__(self, *args, **kwargs):
         """
             CONSTRUCTOR
         """
@@ -39,5 +44,3 @@ class User(BaseModel):
                 __class__.__name__,
                 self.id,
                 self.__dict__))
-
-# |----------- END PRIVATE METHODS -------------|

@@ -55,6 +55,19 @@ class FileStorage():
 
         return (all_objects)
 
+
+    def all_two(self):
+        """
+            returns the dictionary of all objects
+        """
+        all_objects = dict()
+        for key in self.__objects:
+            instance_dict = self.objects.get(key)
+            _object = eval(instance_dict.get('__class__'))(**instance_dict)
+            all_objects[key] = (_object.__str__())
+
+        return (all_objects)
+
     def new(self, obj):
         """
             sets in __objects the obj with key <obj class name>.id
