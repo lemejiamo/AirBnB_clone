@@ -9,6 +9,7 @@
 import sys
 import unittest
 from models.amenity import Amenity
+import pep8
 
 
 class Test_Amenity(unittest.TestCase):
