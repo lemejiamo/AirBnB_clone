@@ -21,7 +21,7 @@ class Test_BaseModel(unittest.TestCase):
             test to CONSTRUCTOR (__init__)
             in class base_model
         """
-        model_dict = {'name': 'holberton', 'edad': '23'}
+        model_dict = {'name': 'holberton', 'edad': 23}
 
         test_model = BaseModel()
         test_model.name = "holberton"
