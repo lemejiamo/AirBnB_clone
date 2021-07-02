@@ -26,7 +26,7 @@ class BaseModel():
 
             id:int assign with an uuid when an instance is created
             create_at:datetime
-            update_at:datetime
+            updated_at:datetime
     """
 
 # |-------------------CONSTRUCTOR-------------------|
@@ -34,6 +34,10 @@ class BaseModel():
         """
             CONSTRUCTOR FOR BASE MODEL
         """
+        self.id = str(uuid4())
+        time = datetime.now()
+        self.created_at = time
+        self.updated_at = time
 
         if kwargs:
             for key in kwargs.keys():
@@ -42,20 +46,15 @@ class BaseModel():
                         kwargs.get(key),
                         "%Y-%m-%dT%H:%M:%S.%f")
                     self.created_at = time
-                elif key == "update_at":
+                elif key == "updated_at":
                     time = datetime.strptime(
                         kwargs.get(key),
                         "%Y-%m-%dT%H:%M:%S.%f")
-                    self.update_at = time
+                    self.updated_at = time
                 elif key == "__class__":
                     pass
                 else:
                     setattr(self, key, kwargs[key])
-        else:
-            self.id = str(uuid4())
-            time = datetime.now()
-            self.created_at = time
-            self.update_at = time
 
         models.storage.new(self)
 
@@ -100,7 +99,7 @@ class BaseModel():
         """
 
         time = datetime.now()
-        self.update_at = time
+        self.updated_at = time
         # models.storage.new(self)
         models.storage.save()
 
@@ -113,5 +112,5 @@ class BaseModel():
         dictionary = copy.deepcopy(self.__dict__)
         dictionary['__class__'] = self.__class__.__name__
         dictionary['created_at'] = datetime.isoformat(self.created_at)
-        dictionary['update_at'] = datetime.isoformat(self.update_at)
+        dictionary['updated_at'] = datetime.isoformat(self.updated_at)
         return dictionary
