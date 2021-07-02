@@ -24,30 +24,35 @@ class Test_BaseModel(unittest.TestCase):
         model_dict = {'name': 'holberton', 'edad': 23}
 
         test_model = BaseModel()
-        test_model.name = "holberton"
-        test_model.edad = 23
-        print(test_model)
 
         # test to verify the instance
         self.assertIsInstance(test_model, BaseModel)
 
-        # test to verify the type of variable
+        # test_initialization:
+        self.assertTrue(hasattr(test_model, "id"))
+        self.assertTrue(hasattr(test_model, "created_at"))
+        self.assertTrue(hasattr(test_model, "update_at"))
 
-        self.assertEqual(type(test_model.created_at), datetime)
+        test_model.name = "holberton"
+        test_model.age = 23
 
-        self.assertEqual(type(test_model.update_at), datetime)
-
-        self.assertEqual(type(test_model.id), str)
-
-        self.assertEqual(type(test_model.name), str)
+        # test to verify addition of attributes
+        self.assertTrue(hasattr(test_model, "name"))
+        self.assertTrue(hasattr(test_model, "age"))
 
         # test to verify the  assigment of var
         self.assertEqual(test_model.name, "holberton")
-
         self.assertEqual(test_model.edad, 23)
 
-        self.assertTrue(test_model.id)
+        # test to verify the type of variable
+        self.assertEqual(type(test_model.created_at), datetime)
+        self.assertEqual(type(test_model.update_at), datetime)
+        self.assertEqual(type(test_model.id), str)
+        self.assertEqual(type(test_model.name), str)
+        self.assertEqual(type(test_model.age), int)
 
+
+        # test to verify the update funtion
         update_pre = test_model.update_at
         test_model.save()
         self.assertTrue(test_model.update_at > update_pre)
