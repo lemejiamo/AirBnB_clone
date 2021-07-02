@@ -16,7 +16,7 @@ class Test_BaseModel(unittest.TestCase):
         Superclass from all foward tests
     """
 
-    def test_CONSTRUCTOR(self):
+    def test_basemodel(self):
         """
             test to CONSTRUCTOR (__init__)
             in class base_model
@@ -42,7 +42,7 @@ class Test_BaseModel(unittest.TestCase):
 
         # test to verify the  assigment of var
         self.assertEqual(test_model.name, "holberton")
-        self.assertEqual(test_model.edad, 23)
+        self.assertEqual(test_model.age, 23)
 
         # test to verify the type of variable
         self.assertEqual(type(test_model.created_at), datetime)
